@@ -5,6 +5,7 @@ import { toggleTodoStatus } from '../services/todos';
 
 const TodoItem = ({ completed, id, title }: Todo) => {
   const client = useQueryClient();
+
   const { mutate: toggle } = useMutation({
     mutationFn: () => toggleTodoStatus(id, !completed),
     onSuccess: () => client.invalidateQueries({ queryKey: ['todos'] }),
@@ -12,7 +13,7 @@ const TodoItem = ({ completed, id, title }: Todo) => {
 
   return (
     <ListItem>
-      <Stack spacing={4} direction="row" onClick={() => toggle}>
+      <Stack spacing={4} direction="row" onClick={() => toggle()}>
         <Checkbox isChecked={completed}>{title}</Checkbox>
       </Stack>
     </ListItem>
